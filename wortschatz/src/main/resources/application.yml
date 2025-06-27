@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: wortschatz-backend
+  profiles:
+    active: ${mode:local}
+  datasource:
+    url: jdbc:postgresql://localhost:5432/test_db
+    username: baerchen_dev
+    password: 3ip_tsi_95141.3
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      idle-timeout: 30000
+      connection-timeout: 30000
+      max-lifetime: 600000
+      pool-name: HikariPool-Prod
+      auto-commit: true
+      leak-detection-threshold: 2000
+      transaction-isolation: TRANSACTION_REPEATABLE_READ
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      '[default_schema]': WRTSTZ_APP_01
+    show-sql: true  
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
+    default-schema: WRTSTZ_APP_01
+logging:
+  level:
+    '[com.zaxxer.hikari]': DEBUG
